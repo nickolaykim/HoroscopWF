@@ -17,7 +17,7 @@ namespace HoroscopWF
     public partial class FormGame : Form
     {
         MyDbContext context = new MyDbContext(); // Создаем связь с базой данных
-         //Создаем массив страниц для удобства вызова
+        //Создаем коллекцию иконок
         List<PictureBox> pbGameField;
         Sound sound = new Sound(); // создаем экземпляр класса Sound
         int playerId = -1;
@@ -32,9 +32,9 @@ namespace HoroscopWF
             InitializeComponent();
             
             openedIcons = new int[2]; //массив для обозначения двух открытых иконок
-            //Массив обозначенных пар иконок
+            //Массив обозначенных целочисленными значениями пар иконок
             iconPairs = new int[] { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11 };
-            //Коллекция готовых иконок хранящихся в PictureBox
+            //Заполняем коллекцию готовых иконок хранящихся в PictureBox
             pbGameField = new List<PictureBox> { pictureBox1, pictureBox2, pictureBox3,
             pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10,
             pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15, pictureBox16,
@@ -49,13 +49,10 @@ namespace HoroscopWF
                 {
                     playerId = a.Id;
                     labelGame.Text = "Приветствую тебя странник в этом путешествии\n"
-                        +"Я вижу что тебе покровительствует " +a.Sign +" и я расскажу тебе о том, что тебя ждет сегодня...\n" +
+                        +"Я вижу что тебе покровительствует знак " +a.Sign +" и я расскажу тебе о том, что тебя ждет сегодня...\n" +
                         "Но тебе придется открыть это предсказание\n" +
                         "Удачи тебе "+ a.Login;
                 }
-
-           
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -70,16 +67,15 @@ namespace HoroscopWF
             DisableIcons();
         }
       
-        private void ProphecyWindow()
+        private void ProphecyWindow() // Метод открывает окно с предсказанием и прячет игровое поле
         {
-            
             FormProphecy prophecyForm = new FormProphecy(playerId);
             prophecyForm.Show();
             this.Visible = false;
             Thread winMusicThread = new Thread(sound.WinMusic);
             winMusicThread.Start();
         }
-        private void GetIcons()
+        private void GetIcons()// Заполнение коллекции иконками
         {
             for (int i = 0; i < pbGameField.Count; i++)
             {
@@ -180,6 +176,7 @@ namespace HoroscopWF
 
         private void TopPlayersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Вот тут надо сделать отдельное окно. Идея со страницами была плохой
             gamePanel.Controls.Clear();
             gamePanel.Controls.Add(new TopPlayersPage());
         }
@@ -191,6 +188,9 @@ namespace HoroscopWF
             minutesLbl.Visible = true;
             minutesLbl.Visible = true;
         }
+
+        //Чтобы не прописывать клик для каждой иконки отдельно, используем Control.Tag
+        //В данном случае получаем номер используемого элемента управления, а именно нажатый pictureBox
         private void pictureBox2_Click(object sender, EventArgs e)
         {
        
@@ -233,24 +233,22 @@ namespace HoroscopWF
                 mainCounter++;
                 Thread successMusicThread = new Thread(sound.SuccessMusic);
                 successMusicThread.Start();
-
+                //Когда счетчик угаданных пар доходит до 12 - Игра окончена. Со сменой текста в лейбле надо еще разобраться
                 if (mainCounter == 12)
                 {
-                    List<Player> playersList = new List<Player>();
-                    foreach (var a in playersList) // поиск игрока по базе данных по переданному ID  
-                        if (a.Id == playerId)
-                        {
-                            labelGame.Text = "Ну вот и все! Мои поздравления " + a.Login + " !!!\n"
-                                + "У тебя получилось открыть предсказание и ты заслужил его!\n"
-                                + "\n"
-                                + "Немного терпения и ты получишь его!";
-                        }
+                    this.labelGame.Text = "Ну вот и все! Мои поздравления\n"
+                                 + "У тебя получилось открыть предсказание и ты заслужил его!\n"
+                                 + "\n"
+                                 + "Немного терпения и ты получишь его!";
+
                     Thread.Sleep(3000);
                     ProphecyWindow();
 
                 }
             }
-            pictureBox.BackgroundImage = imageList1.Images[iconPairs[index]];
+            // Задаем нажатаой иконке изображение, числовое значение которого в коллекции Images, хранящейся в imageList1 
+            // равно индексу в массиве перемешанных пар, который в свою очередь, равен индексу полученому при клике
+            pictureBox.BackgroundImage = imageList1.Images[iconPairs[index]]; 
         }
         private void startBtn_Click(object sender, EventArgs e)
         {
