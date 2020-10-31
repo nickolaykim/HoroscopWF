@@ -21,8 +21,8 @@ namespace HoroscopWF
         List<PictureBox> pbGameField;
         Sound sound = new Sound(); // создаем экземпляр класса Sound
         int playerId = -1;
-        int mainCounter = 0;
-        int openCounter = 0;
+        int mainCounter = 0;//счетчик угаданных пар иконок(максимум 12)
+        int openCounter = 0; //счетчик открытых иконок (максимум 2)
         int seconds, minutes, countDown;
         int[] iconPairs, openedIcons;
 
@@ -193,18 +193,18 @@ namespace HoroscopWF
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            ProphecyWindow();
+       
 
             Thread clickMusicThread = new Thread(sound.ClickMusic);
             clickMusicThread.Start();
 
             PictureBox pictureBox = (PictureBox)sender;
-            int index = Convert.ToInt32(pictureBox.Tag);
+            int index = Convert.ToInt32(pictureBox.Tag);//Получаем целочисленное значение, которое равно номеру нажатой иконки
 
-            openedIcons[openCounter] = index;
+            openedIcons[openCounter] = index; //находим в массиве открытых иконок ту, индекс которой, был получен при клике
             EnableIcons();
             openCounter++;
-
+            //делаем второй клик по открытым иконкам невозможным
             if (openCounter == 1)
             {
                 pbGameField[openedIcons[0]].Enabled = false;
@@ -214,7 +214,7 @@ namespace HoroscopWF
             {
                 pbGameField[openedIcons[1]].Enabled = false;
             }
-
+            //Если значения открытых иконок в массиве не равны, то закрываем все поле и обнуляем счетчик кликов
             if (openCounter == 2 && iconPairs[openedIcons[0]] != iconPairs[openedIcons[1]])
             {
                 HideIcons();
@@ -223,6 +223,7 @@ namespace HoroscopWF
                 Thread failMusicThread = new Thread(sound.FailMusic);
                 failMusicThread.Start();
             }
+            //Если значения открытых иконок в массиве равны, то убираем их с поля и используем счетчик угаданных пар
             if ((openCounter == 2 && iconPairs[openedIcons[0]] == iconPairs[openedIcons[1]]))
             {
                 HideIcons();
@@ -235,16 +236,16 @@ namespace HoroscopWF
 
                 if (mainCounter == 12)
                 {
-                     List<Player> playersList = new List<Player>();
+                    List<Player> playersList = new List<Player>();
                     foreach (var a in playersList) // поиск игрока по базе данных по переданному ID  
                         if (a.Id == playerId)
                         {
                             labelGame.Text = "Ну вот и все! Мои поздравления " + a.Login + " !!!\n"
                                 + "У тебя получилось открыть предсказание и ты заслужил его!\n"
                                 + "\n"
-                                + "Немного терпения и ты получи его!";
+                                + "Немного терпения и ты получишь его!";
                         }
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
                     ProphecyWindow();
 
                 }
