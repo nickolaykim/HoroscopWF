@@ -30,8 +30,8 @@
         {
             this.prophecyPanel = new System.Windows.Forms.Panel();
             this.endBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.prophecyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -40,8 +40,8 @@
             // 
             this.prophecyPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.prophecyPanel.BackgroundImage = global::HoroscopWF.Properties.Resources._192;
+            this.prophecyPanel.Controls.Add(this.label1);
             this.prophecyPanel.Controls.Add(this.endBtn);
-            this.prophecyPanel.Controls.Add(this.textBox1);
             this.prophecyPanel.Controls.Add(this.pictureBox1);
             this.prophecyPanel.Location = new System.Drawing.Point(2, -2);
             this.prophecyPanel.Name = "prophecyPanel";
@@ -62,21 +62,6 @@
             this.endBtn.UseVisualStyleBackColor = true;
             this.endBtn.Click += new System.EventHandler(this.endBtn_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("URWTaurusD", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Goldenrod;
-            this.textBox1.Location = new System.Drawing.Point(49, 200);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(871, 454);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "sdxcfv";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::HoroscopWF.Properties.Resources._161;
@@ -86,6 +71,17 @@
             this.pictureBox1.Size = new System.Drawing.Size(180, 180);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Monotype Corsiva", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Goldenrod;
+            this.label1.Location = new System.Drawing.Point(49, 197);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(866, 467);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FormProphecy
             // 
@@ -99,7 +95,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProphecyForm";
             this.prophecyPanel.ResumeLayout(false);
-            this.prophecyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -109,7 +104,7 @@
 
         private System.Windows.Forms.Panel prophecyPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button endBtn;
+        private System.Windows.Forms.Label label1;
     }
 }

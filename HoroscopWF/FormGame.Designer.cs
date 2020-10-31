@@ -233,7 +233,6 @@
             this.gamePanel.Name = "gamePanel";
             this.gamePanel.Size = new System.Drawing.Size(984, 737);
             this.gamePanel.TabIndex = 0;
-
             // 
             // secondsLbl
             // 
@@ -277,8 +276,8 @@
             // 
             // labelGame
             // 
-            this.labelGame.Font = new System.Drawing.Font("Trajan Color", 14F);
-            this.labelGame.ForeColor = System.Drawing.Color.Coral;
+            this.labelGame.Font = new System.Drawing.Font("Monotype Corsiva", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGame.ForeColor = System.Drawing.Color.Goldenrod;
             this.labelGame.Location = new System.Drawing.Point(117, 26);
             this.labelGame.Name = "labelGame";
             this.labelGame.Size = new System.Drawing.Size(750, 93);

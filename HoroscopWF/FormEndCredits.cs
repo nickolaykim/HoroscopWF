@@ -13,12 +13,11 @@ namespace HoroscopWF
 {
     public partial class FormEndCredits : Form
     {
-        Sound sound = new Sound();
+        
         public FormEndCredits()
         {
             InitializeComponent();
-            Thread winMusicThread = new Thread(sound.WinMusic);
-            winMusicThread.Start();
+            
 
         }
     

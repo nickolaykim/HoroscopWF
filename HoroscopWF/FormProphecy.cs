@@ -19,7 +19,7 @@ namespace HoroscopWF
     {
 
         MyDbContext context = new MyDbContext();
-        
+        Sound sound = new Sound();
         public static StringBuilder sb = new StringBuilder();
 
         string[] signsRus = { "Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец", "Козерог", "Водолей", "Рыбы" };
@@ -34,7 +34,7 @@ namespace HoroscopWF
         public FormProphecy(int Id)
         {
             InitializeComponent();
-            this.textBox1.ForeColor = System.Drawing.Color.Goldenrod;
+            this.label1.ForeColor = System.Drawing.Color.Goldenrod;
             List<Player> playersList = context.Players.ToList();
             Player currentPlayer = new Player();
             foreach (var a in playersList)
@@ -62,16 +62,16 @@ namespace HoroscopWF
             HD.LoadHtml(url); //Используя полученный url, через метод LoadHtml получаем реальную страницу находящуюся по указанному адресу
             //Находим на сайте нужный контейнер div, копируем его селектор и через метод SelectNodes получаем строковое содержимое указанного контейнера
             var strs = HD.DocumentNode.SelectNodes("//div[@class='article__item article__item_alignment_left article__item_html']/p"); //указываем, что нас интересуют именно параграфы <p> 
-            textBox1.Text = "\n\n"
-                +currentPlayer.Login + " !!!" + Environment.NewLine
+            label1.Text = Environment.NewLine + Environment.NewLine
+                + "Тебе удалось "+ currentPlayer.Login + Environment.NewLine
                 + "Сегодня " + DateTime.Today.ToString("dd MMMM") + Environment.NewLine
                 + " И в этот день, звезды тебе открывают следующее: " + Environment.NewLine + Environment.NewLine
                 + zodiak;
             foreach (HtmlNode node in strs)
             {
-                textBox1.Text += node.InnerText.Trim() + Environment.NewLine + Environment.NewLine;
+                label1.Text += node.InnerText.Trim() + Environment.NewLine + Environment.NewLine;
             }
-            textBox1.Text += zodiak;
+            label1.Text += zodiak;
         }
         public static string getResponse(string uri)// Метод отправляет запрос на сервер, получает ответ в виде адреса вебстраницы и возвращает в виде строкового значения
         {
@@ -95,7 +95,8 @@ namespace HoroscopWF
         private void endBtn_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-          
+            Thread winMusicThread = new Thread(sound.WinMusic);
+            winMusicThread.Start();
             FormEndCredits endCreditsForm = new FormEndCredits();
             endCreditsForm.Show();
 

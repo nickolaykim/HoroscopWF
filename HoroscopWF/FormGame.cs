@@ -48,10 +48,10 @@ namespace HoroscopWF
                 if (a.Id == Id) //При нахождении выдаем персональное приветствие в лейбл
                 {
                     playerId = a.Id;
-                    labelGame.Text = "Приветствую тебя странник в этом путешествии\n" +
-                        "Я вижу твой знак зодиака! Это - " +a.Sign +" и я расскажу тебе о том, что тебя ждет сегодня...\n" +
+                    labelGame.Text = "Приветствую тебя странник в этом путешествии\n"
+                        +"Я вижу что тебе покровительствует " +a.Sign +" и я расскажу тебе о том, что тебя ждет сегодня...\n" +
                         "Но тебе придется открыть это предсказание\n" +
-                        "Удачи тебе "+ a.Login + "\n";
+                        "Удачи тебе "+ a.Login;
                 }
 
            
@@ -193,7 +193,8 @@ namespace HoroscopWF
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-     
+            ProphecyWindow();
+
             Thread clickMusicThread = new Thread(sound.ClickMusic);
             clickMusicThread.Start();
 
